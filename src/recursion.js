@@ -41,11 +41,21 @@ var arraySum = function(array) {
     };
   } else {
     return arraySum(array.slice(0,1)) + arraySum(array.slice(1));
-  };
+  }
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+	if (n < 0) {
+		n = Math.abs(n)
+	}
+  if (n === 0) {
+    return true;
+  } else if (n === 1) {
+    return false;
+  } else {
+		return isEven(n -2);
+	}
 };
 
 // 5. Sum all integers below a given integer.
