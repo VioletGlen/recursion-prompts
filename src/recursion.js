@@ -46,16 +46,16 @@ var arraySum = function(array) {
 
 // 4. Check if a number is even.
 var isEven = function(n) {
-	if (n < 0) {
-		n = Math.abs(n)
-	}
+  if (n < 0) {
+    n = Math.abs(n)
+  }
   if (n === 0) {
     return true;
   } else if (n === 1) {
     return false;
   } else {
-		return isEven(n -2);
-	}
+    return isEven(n -2);
+  }
 };
 
 // 5. Sum all integers below a given integer.
@@ -79,13 +79,13 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
-	if (Math.abs(y - x) <= 1) {
-		return [];
-	} else if (y - x > 1) {
-		return [x+1].concat(range(x+1, y))
-	} else if (x - y > 1) {
-		return [x-1].concat(range(x-1, y))
-	};
+  if (Math.abs(y - x) <= 1) {
+    return [];
+  } else if (y - x > 1) {
+    return [x+1].concat(range(x+1, y))
+  } else if (x - y > 1) {
+    return [x-1].concat(range(x-1, y))
+  };
 };
 // var range = function(x, y) {
 //   var result = [];
@@ -171,7 +171,7 @@ var reverse = function(string) {
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
-  string.replace(/\s+/g, '');
+  string.replace(/\s/g, '');
   if (string.length === 0 || string.length === 1) {
     return true;
   }
@@ -262,21 +262,50 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(obj, 'e') // 1
 var countValuesInObj = function(obj, value) {
   var instances = 0;
-	for (var key in obj) {
-		if (obj[key] === value) {
-			instances++;
-		}
-		if (typeof obj[key] === 'object' && !(Array.isArray(obj))) {
-			instances += countValuesInObj(obj[key], value);
-		}
-	}
-	return instances;
+  for (var key in obj) {
+    if (obj[key] === value) {
+      instances++;
+    }
+    if (typeof obj[key] === 'object' && !(Array.isArray(obj))) {
+      instances += countValuesInObj(obj[key], value);
+    }
+  }
+  return instances;
 };
 
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
 var replaceKeysInObj = function(obj, oldKey, newKey) {
+  for (var candidate in obj) {
+    if (candidate === oldKey) {
+      obj[newKey] = obj[candidate];
+      delete obj[candidate];
+    }
+    if (typeof obj[candidate] === 'object') {
+      replaceKeysInObj(obj[candidate], oldKey, newKey);
+    }
+  }
+  return obj;
 };
+//Someone else's solution: why does this work?
+// var replaceKeysInObj = function(obj, oldKey, newKey) {
+//   var currKeys = Object.keys(obj);
+//   if (currKeys.length === 1 && typeof obj[currKeys[0]] !== 'object') {
+//     if (currKeys[0] === oldKey) {
+//       obj[newKey] = obj[oldKey];
+//       delete obj[oldKey];
+//     } else {
+//       for (var k in obj) {
+//         replaceKeysInObj(obj[k], oldKey, newKey);
+//         if (k === oldKey) {
+//           obj[newKey] = obj[oldKey];
+//           delete obj[oldKey];
+//         }
+//       }
+//     }
+//   }
+//   return obj
+// };
 
 // 25. Get the first n Fibonacci numbers. In the Fibonacci sequence, each subsequent
 // number is the sum of the previous two.
