@@ -33,15 +33,15 @@ var sum = function(array) {
 var arraySum = function(array) {
   if (array.length === 0) {
     return 0;
-  } else if (array.length === 1) {
+  }
+  if (array.length === 1) {
     if (typeof array[0] === 'number') {
       return array[0];
     } else if (Array.isArray(array[0])) {
       return arraySum(array[0]);
-    };
-  } else {
-    return arraySum(array.slice(0,1)) + arraySum(array.slice(1));
+    }
   }
+  return arraySum(array.slice(0,1)) + arraySum(array.slice(1));
 };
 
 // 4. Check if a number is even.
@@ -51,28 +51,25 @@ var isEven = function(n) {
   }
   if (n === 0) {
     return true;
-  } else if (n === 1) {
-    return false;
-  } else {
-    return isEven(n -2);
   }
+  if (n === 1) {
+    return false;
+  }
+  return isEven(n - 2);
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
-  var total = 0;
   if (n === 0 || n === 1 || n === -1) {
     return 0;
   }
-  if (1 < n) {
-    total = n - 1;
-    return total + sumBelow(n-1);
+  if (n > 1) {
+    return (n - 1) + sumBelow(n-1);
   }
   if (n < -1) {
-    total = n + 1;
-    return total + sumBelow(n+1);
+    return (n + 1) + sumBelow(n+1);
   }
 };
 
@@ -81,11 +78,13 @@ var sumBelow = function(n) {
 var range = function(x, y) {
   if (Math.abs(y - x) <= 1) {
     return [];
-  } else if (y - x > 1) {
+  }
+  if (y - x > 1) {
     return [x+1].concat(range(x+1, y))
-  } else if (x - y > 1) {
+  }
+  if (x - y > 1) {
     return [x-1].concat(range(x-1, y))
-  };
+  }
 };
 // var range = function(x, y) {
 //   var result = [];
